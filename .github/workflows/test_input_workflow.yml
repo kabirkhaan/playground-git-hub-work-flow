@@ -1,0 +1,65 @@
+name: Registers new devices to the Apple Developer Portal
+on:
+  workflow_dispatch:
+    inputs:
+      device_name:
+        description: Name your device
+        required: true
+      device_id:
+        description: Enter its Unique Device Identifier (UDID).
+        required: true
+
+jobs:
+  prechecks:
+    name: Pre-Checks
+    runs-on: ubuntu-latest
+    outputs:
+      device_name: ${{ steps.prechecks.outputs.device_name }}
+      device_UDID: ${{ steps.prechecks.outputs.device_UDID }}
+    timeout-minutes: 5
+    steps:
+      - name: Run pre-checks
+        id: prechecks
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const deviceName = '${{ github.event.inputs.device_name }}'
+            const deviceUDID = '${{ github.event.inputs.device_UDID }}'
+            if (typeof deviceName !== 'undefined' && deviceName) {
+              const message = `👋  @${context.actor}, seems as if the input, `Device Name` contained an invalid answer: '${{ github.event.inputs.device_name }}'.`;
+              core.setFailed(message);
+              return
+            }
+
+             if (typeof deviceUDID !== 'undefined' && deviceUDID) {
+              const message = `👋  @${context.actor}, seems as if the input, `Device UDID` contained an invalid answer: '${{ github.event.inputs.deviceUDID }}'.`;
+              core.setFailed(message);
+              return
+            }
+
+            core.setOutput('device_UDID', deviceUDID);
+            core.setOutput('device_name', deviceName);
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          ssh-key: "${{ secrets.SSH_PRIVATE_KEY }}"
+
+      
+      - name: Register Device
+        id: register-device
+        run: |
+          echo ${{ needs.prechecks.outputs.device_UDID }}
+          echo ${{ needs.prechecks.outputs.deviceName} }
+          echo ${{ workflow.name }}
+          echo ${{ job.status }}
+      
+      - name: Print 
+        with:
+          slack_token: ${{ secrets.SLACK_TOKEN }}
+          channel: C9A305T3M # ios_one
+          fields: ref,actor,commit,duration
+          header: ${{ workflow.name }} ${{ job.status }}
+          text: |
+           "New device has been added to the Apple Developer Portal. To Downloads the latest signing certificates and provisioning profiles, please run `make certificates`"
