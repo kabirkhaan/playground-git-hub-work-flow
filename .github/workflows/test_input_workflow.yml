@@ -44,6 +44,6 @@ jobs:
         id: register-device
         run: |
           echo ${{ needs.prechecks.outputs.device_UDID }}
-          echo ${{ needs.prechecks.outputs.deviceName} }
+          echo ${{ needs.prechecks.outputs.deviceName}}
           echo ${{ workflow.name }}
           echo ${{ job.status }}
