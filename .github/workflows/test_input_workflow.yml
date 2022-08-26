@@ -26,13 +26,13 @@ jobs:
             const deviceName = '${{ github.event.inputs.device_name }}'
             const deviceId = '${{ github.event.inputs.device_id }}'
             if (typeof deviceName === 'undefined'|| deviceName.trim() === '') {
-              const message = `👋  @${context.actor}, seems as if the input, `Device Name` contained an invalid answer: '${{ github.event.inputs.device_name }}'.`;
+              const message = `👋  @${context.actor}, seems as if the input, 'Device Name' contained an invalid answer: '${{ github.event.inputs.device_name }}'.`;
               core.setFailed(message);
               return
             }
 
             if (typeof deviceId === 'undefined'|| deviceId.trim() === '') {
-              const message = `👋  @${context.actor}, seems as if the input, `Device UDID` contained an invalid answer: '${{ github.event.inputs.device_id }}'.`;
+              const message = `👋  @${context.actor}, seems as if the input, 'Device UDID' contained an invalid answer: '${{ github.event.inputs.device_id }}'.`;
               core.setFailed(message);
               return
             }
