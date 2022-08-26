@@ -25,13 +25,13 @@ jobs:
           script: |
             const deviceName = '${{ github.event.inputs.device_name }}'
             const deviceUDID = '${{ github.event.inputs.device_UDID }}'
-            if (typeof deviceName !== 'undefined' && deviceName) {
+            if (typeof deviceName === 'undefined'|| deviceName.trim() === '') {
               const message = `👋  @${context.actor}, seems as if the input, `Device Name` contained an invalid answer: '${{ github.event.inputs.device_name }}'.`;
               core.setFailed(message);
               return
             }
 
-             if (typeof deviceUDID !== 'undefined' && deviceUDID) {
+            if (typeof deviceUDID === 'undefined'|| deviceUDID.trim() === '') {
               const message = `👋  @${context.actor}, seems as if the input, `Device UDID` contained an invalid answer: '${{ github.event.inputs.deviceUDID }}'.`;
               core.setFailed(message);
               return
