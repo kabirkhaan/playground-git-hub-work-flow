@@ -43,6 +43,6 @@ jobs:
       - name: Register Device
         id: register-device
         run: |
-          echo ${{ needs.prechecks.outputs.device_id }}
-          echo ${{ needs.prechecks.outputs.device_id}}
+          echo ${{ steps.prechecks.outputs.device_id }}
+          echo ${{ steps.prechecks.outputs.device_name}}
           echo ${{ job.status }}
