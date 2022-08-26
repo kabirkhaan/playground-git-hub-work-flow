@@ -10,12 +10,12 @@ on:
         required: true
 
 jobs:
-  prechecks:
-    name: Pre-Checks
+  register_device:
+    name: Register Device
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     outputs:
       device_name: ${{ steps.prechecks.outputs.device_name }}
-      device_UDID: ${{ steps.prechecks.outputs.device_UDID }}
+      device_id: ${{ steps.prechecks.outputs.device_id }}
     timeout-minutes: 5
     steps:
       - name: Run pre-checks
@@ -24,25 +24,25 @@ jobs:
         with:
           script: |
             const deviceName = '${{ github.event.inputs.device_name }}'
-            const deviceUDID = '${{ github.event.inputs.device_UDID }}'
+            const deviceId = '${{ github.event.inputs.device_id }}'
             if (typeof deviceName === 'undefined'|| deviceName.trim() === '') {
               const message = `👋  @${context.actor}, seems as if the input, `Device Name` contained an invalid answer: '${{ github.event.inputs.device_name }}'.`;
               core.setFailed(message);
               return
             }
 
-            if (typeof deviceUDID === 'undefined'|| deviceUDID.trim() === '') {
-              const message = `👋  @${context.actor}, seems as if the input, `Device UDID` contained an invalid answer: '${{ github.event.inputs.deviceUDID }}'.`;
+            if (typeof deviceId === 'undefined'|| deviceId.trim() === '') {
+              const message = `👋  @${context.actor}, seems as if the input, `Device UDID` contained an invalid answer: '${{ github.event.inputs.device_id }}'.`;
               core.setFailed(message);
               return
             }
 
-            core.setOutput('device_UDID', deviceUDID);
+            core.setOutput('device_id', deviceId);
             core.setOutput('device_name', deviceName);
       
       - name: Register Device
         id: register-device
         run: |
-          echo ${{ needs.prechecks.outputs.device_UDID }}
-          echo ${{ needs.prechecks.outputs.deviceName}}
+          echo ${{ needs.prechecks.outputs.device_id }}
+          echo ${{ needs.prechecks.outputs.device_id}}
           echo ${{ job.status }}
