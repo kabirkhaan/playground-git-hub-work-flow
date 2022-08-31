@@ -25,3 +25,11 @@ jobs:
         run: |
           echo Say Hello
           echo all good 👍
+
+      - name: Upload .xcresult artifact
+        if: failure()
+        uses: actions/upload-artifact@v3.1
+        with:
+          name: README.md
+          path: README.md
+          retention-days: 1
