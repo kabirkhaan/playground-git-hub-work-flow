@@ -31,11 +31,10 @@ jobs:
         with:
           script: |
             try {
-                const result = await github.rest.issues.fetch({
-                  ...context.repo,
-                  labels: `🚀[RELEASE]`,
-                  filter: `repos`
-                });
+                const result = await  github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                })
 
                 core.debug(`Result ${result.data}`);
                 return result.data;
