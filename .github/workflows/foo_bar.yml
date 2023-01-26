@@ -27,6 +27,7 @@ jobs:
           echo all good 👍
       
       - name: Fetch Issues
+        uses: actions/github-script@v6
         run: |
           try {
               const result = await github.rest.issues.fetch({
