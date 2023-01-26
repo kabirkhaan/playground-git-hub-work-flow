@@ -32,10 +32,11 @@ jobs:
           script: |
             const query = `query($owner:String!, $name:String!) {
               repository(owner:$owner, name:$name) {
-                issues(orderBy: {field: CREATED_AT, direction: DESC}, first: 5) {
-                edges {
-                  node {
-                    title
+                issues(first: 4, filterBy: {states: OPEN}) {
+                  edges {
+                    node {
+                      title
+                    }
                   }
                 }
               }
@@ -47,6 +48,11 @@ jobs:
             const result = await github.graphql(query, variables)
 
             core.debug(`Result ${result.data}`);
+
+            let latestIssues = result.repository.releases.edges
+              .map(el => el.node.title.name)
+
+            core.debug(`latestIssues ${latestIssues`);
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
