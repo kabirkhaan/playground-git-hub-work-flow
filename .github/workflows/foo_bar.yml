@@ -26,9 +26,20 @@ jobs:
           echo Say Hello
           echo all good 👍
       
-      - name: Read Env Variable
-        run: | 
-           echo 'Hi ${{ env.MY_TEST_VARIABLE }}'
+      - name: Fetch Issues
+        run: |
+          try {
+              const result = await github.rest.issues.fetch({
+                ...context.repo,
+                labels: `🚀[RELEASE]`,
+                filter: `repos`
+              });
+
+              core.debug(`Result ${result.data}`);
+              return result.data;
+            } catch (err) {
+              core.setFailed(`Creating issue failed with error ${err}`)
+            }
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
