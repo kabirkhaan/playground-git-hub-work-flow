@@ -28,19 +28,20 @@ jobs:
       
       - name: Fetch Issues
         uses: actions/github-script@v6
-        run: |
-          try {
-              const result = await github.rest.issues.fetch({
-                ...context.repo,
-                labels: `🚀[RELEASE]`,
-                filter: `repos`
-              });
+        with:
+          script: |
+            try {
+                const result = await github.rest.issues.fetch({
+                  ...context.repo,
+                  labels: `🚀[RELEASE]`,
+                  filter: `repos`
+                });
 
-              core.debug(`Result ${result.data}`);
-              return result.data;
-            } catch (err) {
-              core.setFailed(`Creating issue failed with error ${err}`)
-            }
+                core.debug(`Result ${result.data}`);
+                return result.data;
+              } catch (err) {
+                core.setFailed(`Creating issue failed with error ${err}`)
+              }
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
