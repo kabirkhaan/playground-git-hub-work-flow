@@ -25,7 +25,11 @@ jobs:
         run: |
           echo Say Hello
           echo all good 👍
-
+      
+      - name: Read Env Variable
+        run: | 
+           echo 'Hi ${{ env.MY_TEST_VARIABLE }}'
+           
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
         with:
