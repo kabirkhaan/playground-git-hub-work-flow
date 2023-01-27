@@ -45,7 +45,19 @@ jobs:
               owner: context.repo.owner,
               name: context.repo.repo
             };           
-            const result = await github.graphql(query, variables)
+            const result = await github.graphql(query, variables);
+            let existingXYZIssues = result.repository.issues.edges
+              .filter(el => el.node.title.includes("[RELEASE] XZY"));
+            let existingABCReleases = result.repository.issues.edges
+              .filter(el => el.node.title.includes("[RELEASE] ABC"));
+
+            if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
+              core.warning(`XYZ Release 👍`);
+            } else if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
+              core.warning(`ABC Release 👍`);
+            } else {
+                core.warning(`Unknown Release 👍`);
+            }
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
