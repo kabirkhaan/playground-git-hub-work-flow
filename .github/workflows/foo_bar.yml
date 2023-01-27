@@ -46,13 +46,7 @@ jobs:
               name: context.repo.repo
             };
             const result = await github.graphql(query, variables)
-
             core.debug(`Result ${result.data}`);
-
-            let latestIssues = result.repository.releases.edges
-              .map(el => el.node.title.name)
-
-            core.debug(`latestIssues ${latestIssues`);
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
