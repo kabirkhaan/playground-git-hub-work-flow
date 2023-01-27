@@ -46,21 +46,6 @@ jobs:
               name: context.repo.repo
             };           
             const result = await github.graphql(query, variables)
-            let existingXYZIssues = result.repository.issues.edges
-              .filter(el => el.node.title.includes("[RELEASE] XZY"));
-            
-            let existingABCReleases = result.repository.issues.edges
-              .filter(el => el.node.title.includes("[RELEASE] ABC"));
-
-            if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
-              echo XYZ Release 👍
-            } else if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
-              echo ABC Release 👍
-            } else {
-                echo Unknown Release 👍
-            }
-
-
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
