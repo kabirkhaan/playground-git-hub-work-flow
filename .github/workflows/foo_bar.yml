@@ -47,7 +47,7 @@ jobs:
             };
             const result = await github.graphql(query, variables)
             core.debug(`Result ${result.data}`);
-            echo ${result.data}
+            echo $result.data
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
