@@ -62,9 +62,6 @@ jobs:
             } else {
                 echo Unknown Release 👍
             }
-
-            core.debug(`existingRcTags: ${JSON.stringify(existingRcTags)}`);
-           
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
