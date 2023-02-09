@@ -44,13 +44,14 @@ jobs:
             const variables = {
               owner: context.repo.owner,
               name: context.repo.repo
-            };           
+            };
+            let version = "0.1.2"
             const result = await github.graphql(query, variables);
             let existingXYZIssues = result.repository.issues.edges
-              .filter(el => el.node.title.includes("[RELEASE] XZY"));
+              .filter(el => el.node.title.includes(`[RELEASE] XZY '${version}'`));
             let existingABCReleases = result.repository.issues.edges
-              .filter(el => el.node.title.includes("[RELEASE] ABC"));
-
+              .filter(el => el.node.title.includes(`[RELEASE] ABC '${version}'`));
+              
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
             } else if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
