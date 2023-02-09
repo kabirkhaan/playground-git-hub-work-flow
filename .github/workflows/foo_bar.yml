@@ -45,10 +45,12 @@ jobs:
               owner: context.repo.owner,
               name: context.repo.repo
             };
-            let version = "0.1.2";
-            core.warning(`Actual [RELEASE] XZY '${version}'`);
-            core.warning(`Actual [RELEASE] XZY '${version}'`);
             const result = await github.graphql(query, variables);
+            
+            const version = "0.1.2";
+            core.warning(`Actual [RELEASE] XZY '${version}'`);
+            core.warning(`Actual [RELEASE] XZY '${version}'`);
+            
             let existingXYZIssues = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] XZY '${version}'`));
             let existingABCReleases = result.repository.issues.edges
