@@ -73,8 +73,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            core.warning(`Core OUT PUT For XYZ ${ steps.build.outputs.xyz }`);
-            core.warning(`Core OUT PUT For ABC ${ steps.build.outputs.abc }`);
+            core.warning(`Core OUT PUT For XYZ #${{ steps.build.outputs.xyz }}`);
+            core.warning(`Core OUT PUT For ABC #${{ steps.build.outputs.abc }}`);
           
       - name: Say hello to the Release ABC
         if: steps.build.outputs.abc == 'ABC'
