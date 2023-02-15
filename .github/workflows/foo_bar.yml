@@ -68,11 +68,10 @@ jobs:
               core.warning(`ABC Release 👍`);
               apps.push('ABC);
             } 
-            if (!apps.length){
+            if (!apps.length) {
                 core.warning(`Unknown Release 👎`);
                  apps.push("Unknown");
             }
-
             core.setOutput('apps', apps);
            
       - name: Upload .xcresult artifact
