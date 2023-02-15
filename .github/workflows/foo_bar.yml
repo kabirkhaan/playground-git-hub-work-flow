@@ -23,6 +23,7 @@ jobs:
     outputs:
      abc: ${{ steps.build.outputs.abc }}
      xyz: ${{ steps.build.outputs.xyz }}
+     apps: ${{ steps.build.outputs.apps }}
     steps:
       - name: Say hello
         run: |
@@ -54,27 +55,28 @@ jobs:
             const version = "0.1.2";
             core.warning(`Actual [RELEASE] XZY ${version}`);
             core.warning(`Actual [RELEASE] ABC ${version}`);
-            
+          
             let existingXYZIssues = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] XZY ${version}`));
             let existingABCReleases = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] ABC ${version}`));
             
+              var apps: [];
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
+              apps.push('xyz');
               core.warning(`XYZ Release 👍`);
               core.setOutput('xyz', 'XYZ');
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
+             apps.push('abc');
               core.warning(`ABC Release 👍`);
               core.setOutput('abc', 'ABC');
             } 
 
-      - name: Print out
-        uses: actions/github-script@v6
-        with:
-          script: |
-            core.warning(`Core OUT PUT For XYZ #${{ steps.build.outputs.xyz }}`);
+            core.setOutput('apps', apps);
+            core.warning(`Core OUT PUT For APPs #${{ steps.build.outputs.apps }}`);
             core.warning(`Core OUT PUT For ABC #${{ steps.build.outputs.abc }}`);
+            core.warning(`Core OUT PUT For XYZ #${{ steps.build.outputs.xyz }}`);
           
       - name: Say hello to the Release ABC
         if: steps.build.outputs.abc == 'ABC'
