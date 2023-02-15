@@ -63,10 +63,12 @@ jobs:
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
               core.setOutput('xyz', 'XYZ');
+              core.info(`Core OUT PUT For XYZ ${steps.build.outputs.xyz}`);
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
               core.warning(`ABC Release 👍`);
               core.setOutput('abc', 'ABC');
+              core.info(`Core OUT PUT For ABC ${steps.build.outputs.abc}`);
             } 
 
       - name: Say hello to the Release ABC
