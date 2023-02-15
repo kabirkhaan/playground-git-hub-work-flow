@@ -89,7 +89,7 @@ jobs:
           echo all good ABC
 
       - name: Say hello to the Release XZY
-        if: ${{ !steps.build.outputs.apps.includes("XYZ") }}
+        if: ${{ steps.build.outputs.apps.includes("XYZ") }}
         run: |
           echo Say Hello XYZ
           echo all good XYZ
