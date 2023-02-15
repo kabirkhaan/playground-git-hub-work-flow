@@ -81,7 +81,10 @@ jobs:
           name: README.md
           path: README.md
           retention-days: 1
-
+  sayHello:
+    needs: [build]
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    steps:
       - name: Say hello to the Release ABC
         if: (steps.build.outputs.apps.includes("ABC"))
         run: |
