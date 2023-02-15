@@ -63,17 +63,12 @@ jobs:
             
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
-              apps.push("XYZ")
               core.setOutput('isXYZ', true);
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
               core.warning(`ABC Release 👍`);
               core.setOutput('isABC', true);
             } 
-            if (!apps.length){
-                core.warning(`Unknown Release 👎`);
-                core.setOutput('isUnknown', true);
-            }
 
             
            
@@ -95,9 +90,3 @@ jobs:
         run: |
           echo Say Hello XYZ
           echo all good XYZ
-      
-      - name: Say hello to the Release Unknown
-        if: "${{ steps.build.outputs.isUnknown == 'true' }}"
-        run: |
-          echo Say Hello Unknown
-          echo all good Unknown
