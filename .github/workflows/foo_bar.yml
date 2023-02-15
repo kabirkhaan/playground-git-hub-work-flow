@@ -79,13 +79,13 @@ jobs:
             core.warning(`Core OUT PUT For XYZ #${{ steps.build.outputs.xyz }}`);
           
       - name: Say hello to the Release ABC
-        if: steps.build.outputs.abc == 'ABC'
+        if: steps.build.outputs.abc != 'ABC'
         run: |
           echo Say Hello ABC
           echo all good ABC
 
       - name: Say hello to the Release XYZ
-        if: steps.build.outputs.xyz == 'XYZ'
+        if: steps.build.outputs.xyz != 'XYZ'
         run: |
           echo Say Hello XYZ
           echo all good XYZ
