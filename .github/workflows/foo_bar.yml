@@ -68,7 +68,7 @@ jobs:
               core.warning(`ABC Release 👍`);
               apps.push("ABC")
             } 
-            if (apps.isEmpty()){
+            if (apps.length){
                 core.warning(`Unknown Release 👎`);
                  apps.push("Unknown")
             }
