@@ -61,14 +61,14 @@ jobs:
             let existingABCReleases = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] ABC ${version}`));
             
-              var apps: [];
+            var apps = [];
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               apps.push('xyz');
               core.warning(`XYZ Release 👍`);
               core.setOutput('xyz', 'XYZ');
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
-             apps.push('abc');
+              apps.push('abc');
               core.warning(`ABC Release 👍`);
               core.setOutput('abc', 'ABC');
             } 
