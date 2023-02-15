@@ -63,15 +63,13 @@ jobs:
             
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
-              core.setOutput('isXYZ', true);
+              core.setOutput('isXYZ', 'true');
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
               core.warning(`ABC Release 👍`);
-              core.setOutput('isABC', true);
+              core.setOutput('isABC', 'true');
             } 
 
-            
-           
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -80,13 +78,13 @@ jobs:
           retention-days: 1
 
       - name: Say hello to the Release ABC
-        if: "${{ steps.build.outputs.isABC == 'true' }}"
+        if: ${{ steps.build.outputs.isABC == 'true' }}
         run: |
           echo Say Hello ABC
           echo all good ABC
 
       - name: Say hello to the Release XZY
-        if: "${{ steps.build.outputs.isXYZ == 'true' }}"
+        if: ${{ steps.build.outputs.isXYZ == 'true' }}
         run: |
           echo Say Hello XYZ
           echo all good XYZ
