@@ -83,19 +83,19 @@ jobs:
           retention-days: 1
 
       - name: Say hello to the Release ABC
-        if: steps.build.outputs.apps.includes("ABC")
+        if: steps.build.outputs.apps.includes("ABC");
         run: |
           echo Say Hello ABC
           echo all good ABC
 
       - name: Say hello to the Release XZY
-        if: steps.build.outputs.apps.includes("XYZ")
+        if: steps.build.outputs.apps.includes("XYZ");
         run: |
           echo Say Hello XYZ
           echo all good XYZ
       
       - name: Say hello to the Release Unknown
-        if: steps.build.outputs.apps.includes("Unknown")
+        if: steps.build.outputs.apps.includes("Unknown");
         run: |
           echo Say Hello Unknown
           echo all good Unknown
