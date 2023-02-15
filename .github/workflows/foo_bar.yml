@@ -83,19 +83,19 @@ jobs:
           retention-days: 1
 
       - name: Say hello to the Release ABC
-        if: ${{ containsValue(steps.build.outputs.apps, 'ABC') }}
+        if: ${{ contains(steps.build.outputs.apps, 'ABC') }}
         run: |
           echo Say Hello ABC
           echo all good ABC
 
       - name: Say hello to the Release XZY
-        if: ${{ containsValue(steps.build.outputs.apps, 'XZY') }}
+        if: ${{ contains(steps.build.outputs.apps, 'XZY') }}
         run: |
           echo Say Hello XYZ
           echo all good XYZ
       
       - name: Say hello to the Release Unknown
-        if: ${{ containsValue(steps.build.outputs.apps, 'Unknown') }}
+        if: ${{ contains(steps.build.outputs.apps, 'Unknown') }}
         run: |
           echo Say Hello Unknown
           echo all good Unknown
