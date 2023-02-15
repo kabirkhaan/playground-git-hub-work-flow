@@ -21,7 +21,8 @@ jobs:
   build:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     outputs:
-     apps: ${{ steps.build.outputs.apps }}
+     isXYZ: ${{ steps.build.outputs.isXYZ }}
+     isABC: ${{ steps.build.outputs.isABC }}
     steps:
       - name: Say hello
         run: |
@@ -59,21 +60,16 @@ jobs:
             let existingABCReleases = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] ABC ${version}`));
             
-            var apps = [];
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
               apps.push("XYZ")
+              core.setOutput('isXYZ', true);
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
               core.warning(`ABC Release 👍`);
-              apps.push("ABC")
+              core.setOutput('isABC', true);
             } 
-            if (!apps.length){
-                core.warning(`Unknown Release 👎`);
-                 apps.push("Unknown")
-            }
-
-            core.setOutput('apps', apps);
+   
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
@@ -83,19 +79,13 @@ jobs:
           retention-days: 1
 
       - name: Say hello to the Release ABC
-        if: ${{ steps.build.outputs.apps.includes('ABC') == 'true' }}
+        if: ${{ steps.build.outputs.isABC == 'true' }}
         run: |
           echo Say Hello ABC
           echo all good ABC
 
       - name: Say hello to the Release XZY
-        if: ${{ steps.build.outputs.apps.includes('XYZ') == 'true' }}
+        if: ${{ steps.build.outputs.isXYZ == 'true' }}
         run: |
           echo Say Hello XYZ
           echo all good XYZ
-      
-      - name: Say hello to the Release Unknown
-        if: ${{ steps.build.outputs.apps.includes('Unknown') == 'true' }}
-        run: |
-          echo Say Hello Unknown
-          echo all good Unknown
