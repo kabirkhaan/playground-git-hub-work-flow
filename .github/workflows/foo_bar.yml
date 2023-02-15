@@ -60,23 +60,14 @@ jobs:
             let existingABCReleases = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] ABC ${version}`));
             
-            var apps = [];
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
-              apps.push("XYZ");
-              core.setOutput('XYZ', 'true');
+              core.setOutput('isXYZ', 'true');
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
               core.warning(`ABC Release 👍`);
-              apps.push('ABC);
-              core.setOutput('XYZ', 'true');
+              core.setOutput('isABC', 'true');
             } 
-            if (!apps.length){
-                core.warning(`Unknown Release 👎`);
-                 apps.push("Unknown");
-            }
-
-            core.setOutput('apps', apps);
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
