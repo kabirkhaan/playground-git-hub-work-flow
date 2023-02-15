@@ -23,6 +23,7 @@ jobs:
     outputs:
      isXYZ: ${{ steps.build.outputs.isXYZ }}
      isABC: ${{ steps.build.outputs.isABC }}
+     isUnknown: ${{ steps.build.outputs.isUnknown }}
     steps:
       - name: Say hello
         run: |
@@ -69,7 +70,12 @@ jobs:
               core.warning(`ABC Release 👍`);
               core.setOutput('isABC', true);
             } 
-   
+            if (!apps.length){
+                core.warning(`Unknown Release 👎`);
+                core.setOutput('isisUnknownABC', true);
+            }
+
+            
            
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
@@ -79,13 +85,19 @@ jobs:
           retention-days: 1
 
       - name: Say hello to the Release ABC
-        if: ${{ steps.build.outputs.isABC == 'true' }}
+        if: (${{ steps.build.outputs.apps.includes('ABC') == 'true' }})
         run: |
           echo Say Hello ABC
           echo all good ABC
 
       - name: Say hello to the Release XZY
-        if: ${{ steps.build.outputs.isXYZ == 'true' }}
+        if: (${{ steps.build.outputs.apps.includes('XYZ') == 'true' }})
         run: |
           echo Say Hello XYZ
           echo all good XYZ
+      
+      - name: Say hello to the Release Unknown
+        if: (${{ steps.build.outputs.apps.includes('Unknown') == 'true' }})
+        run: |
+          echo Say Hello Unknown
+          echo all good Unknown
