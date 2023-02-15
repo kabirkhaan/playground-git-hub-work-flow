@@ -21,7 +21,8 @@ jobs:
   build:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     outputs:
-     apps: ${{ steps.build.outputs.apps }}
+     abc: ${{ steps.build.outputs.abc }}
+     xyz: ${{ steps.build.outputs.xyz }}
     steps:
       - name: Say hello
         run: |
@@ -59,21 +60,15 @@ jobs:
             let existingABCReleases = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] ABC ${version}`));
             
-            var apps = [];
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
-              apps.push("XYZ");
+              core.setOutput('xyz', 'XYZ');
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
               core.warning(`ABC Release 👍`);
-              apps.push("ABC");
+              core.setOutput('abc', 'ABC');
             } 
-            if (!apps.length) {
-                core.warning(`Unknown Release 👎`);
-                 apps.push("Unknown");
-            }
-            core.setOutput('apps', apps);
-           
+        
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -82,19 +77,13 @@ jobs:
           retention-days: 1
 
       - name: Say hello to the Release ABC
-        if: ${{ startsWith(steps.build.outputs.apps, 'ABC') }}
+        if: ${{ startsWith(steps.build.outputs.abc, 'ABC') }}
         run: |
           echo Say Hello ABC
           echo all good ABC
 
-      - name: Say hello to the Release XZY
-        if: ${{ startsWith(steps.build.outputs.apps, 'XZY') }}
+      - name: Say hello to the Release XYZ
+        if: ${{ startsWith(steps.build.outputs.xyz, 'XYZ') }}
         run: |
           echo Say Hello XYZ
           echo all good XYZ
-      
-      - name: Say hello to the Release Unknown
-        if: ${{ startsWith(steps.build.outputs.apps, 'Unknown') }}
-        run: |
-          echo Say Hello Unknown
-          echo all good Unknown
