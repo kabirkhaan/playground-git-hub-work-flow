@@ -21,9 +21,7 @@ jobs:
   build:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     outputs:
-     isXYZ: ${{ steps.build.outputs.isXYZ }}
-     isABC: ${{ steps.build.outputs.isABC }}
-     isUnknown: ${{ steps.build.outputs.isUnknown }}
+     apps: ${{ steps.build.outputs.apps }}
     steps:
       - name: Say hello
         run: |
@@ -61,15 +59,22 @@ jobs:
             let existingABCReleases = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] ABC ${version}`));
             
+            var apps = [];
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
-              core.setOutput('isXYZ', 'true');
+              apps.push("XYZ")
             } 
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
               core.warning(`ABC Release 👍`);
-              core.setOutput('isABC', 'true');
+              apps.push('ABC)
             } 
+            if (!apps.length){
+                core.warning(`Unknown Release 👎`);
+                 apps.push("Unknown")
+            }
 
+            
+           
       - name: Upload .xcresult artifact
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -78,13 +83,19 @@ jobs:
           retention-days: 1
 
       - name: Say hello to the Release ABC
-        if: ${{ steps.build.outputs.isABC == 'true' }}
+        if: ${{ fromJSON(steps.build.outputs.apps).includes('ABC') == 'true' }}
         run: |
           echo Say Hello ABC
           echo all good ABC
 
       - name: Say hello to the Release XZY
-        if: ${{ steps.build.outputs.isXYZ == 'true' }}
+        if: ${{ fromJSON(steps.build.outputs.apps).includes('XYZ') == 'true' }}
         run: |
           echo Say Hello XYZ
           echo all good XYZ
+      
+      - name: Say hello to the Release Unknown
+        if: ${{ fromJSON(steps.build.outputs.apps).includes('Unknown') == 'true' }}
+        run: |
+          echo Say Hello Unknown
+          echo all good Unknown
