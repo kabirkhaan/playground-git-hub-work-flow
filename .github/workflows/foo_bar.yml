@@ -72,7 +72,7 @@ jobs:
             } 
             if (!apps.length){
                 core.warning(`Unknown Release 👎`);
-                core.setOutput('isisUnknownABC', true);
+                core.setOutput('isUnknown', true);
             }
 
             
@@ -85,19 +85,19 @@ jobs:
           retention-days: 1
 
       - name: Say hello to the Release ABC
-        if: ${{ steps.build.outputs.apps.includes(`ABC`) == 'true' }}
+        if: "${{ steps.build.outputs.isABC == 'true' }}"
         run: |
           echo Say Hello ABC
           echo all good ABC
 
       - name: Say hello to the Release XZY
-        if: ${{ steps.build.outputs.apps.includes(`XYZ``) == 'true' }}
+        if: "${{ steps.build.outputs.isXYZ == 'true' }}"
         run: |
           echo Say Hello XYZ
           echo all good XYZ
       
       - name: Say hello to the Release Unknown
-        if: ${{ steps.build.outputs.apps.includes(`Unknown`) == 'true' }}
+        if: "${{ steps.build.outputs.isUnknown == 'true' }}"
         run: |
           echo Say Hello Unknown
           echo all good Unknown
