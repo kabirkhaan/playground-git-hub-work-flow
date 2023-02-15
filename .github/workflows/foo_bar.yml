@@ -60,10 +60,12 @@ jobs:
             let existingABCReleases = result.repository.issues.edges
               .filter(el => el.node.title.includes(`[RELEASE] ABC ${version}`));
             
+            core.setOutput('isXYZ', 'false');
             if (Array.isArray(existingXYZIssues) && existingXYZIssues.length) { 
               core.warning(`XYZ Release 👍`);
               core.setOutput('isXYZ', 'true');
             } 
+            core.setOutput('isABC', 'false');
             if (Array.isArray(existingABCReleases) && existingABCReleases.length) { 
               core.warning(`ABC Release 👍`);
               core.setOutput('isABC', 'true');
