@@ -90,8 +90,14 @@ jobs:
           echo Say Hello XYZ
           echo all good XYZ
 
-      - name: Say hello to Release with Array
+      - name: Say hello to Release ABC with Array
         if:  contains(steps.parse-ref.outputs.apps, 'ABC')
         run: |
           echo Say Hello ABC
           echo all good ABC
+      
+      - name: Say hello to Release XYZ with Array
+        if:  contains(steps.parse-ref.outputs.apps, 'ABC')
+        run: |
+          echo Say Hello XYZ
+          echo all good XYZ
