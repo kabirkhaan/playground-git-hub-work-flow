@@ -97,7 +97,7 @@ jobs:
           echo all good ABC
       
       - name: Say hello to Release XYZ with Array
-        if:  contains(steps.parse-ref.outputs.apps, 'ABC')
+        if:  contains(steps.parse-ref.outputs.apps, 'XYZ')
         run: |
           echo Say Hello XYZ
           echo all good XYZ
