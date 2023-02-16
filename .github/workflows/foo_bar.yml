@@ -91,7 +91,7 @@ jobs:
           echo all good XYZ
 
       - name: Say hello to Release with Array
-        if:  contains(fromJSON('{ steps.parse-ref.outputs.apps }'), 'ABC')
+        if:  contains(steps.parse-ref.outputs.apps, 'ABC')
         run: |
           echo Say Hello ABC
           echo all good ABC
