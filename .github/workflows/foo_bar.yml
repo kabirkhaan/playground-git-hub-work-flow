@@ -21,9 +21,9 @@ jobs:
   build:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     outputs:
-     abc: ${{ steps.build.outputs.abc }}
-     xyz: ${{ steps.build.outputs.xyz }}
-     apps: ${{ steps.build.outputs.apps }}
+     abc: ${{ steps.parse-ref.outputs.abc }}
+     xyz: ${{ steps.parse-ref.outputs.xyz }}
+     apps: ${{ steps.parse-ref.outputs.apps }}
     steps:
       - name: Say hello
         run: |
@@ -89,3 +89,9 @@ jobs:
         run: |
           echo Say Hello XYZ
           echo all good XYZ
+
+      - name: Say hello to Release with Array
+        if:  $ {{ contains( fromJSON('steps.parse-ref.outputs.apps') == 'ABC' }}
+        run: |
+          echo Say Hello ABC
+          echo all good ABC
