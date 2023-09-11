@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Add data
         id: add-initial-data
-        uses: ./.github/workflows/workflow-data
+        uses: ./.github/actions/workflow-data
         with:
           runner-name: ${{ runner.name }}
           workflow-start-time: $(date +'%Y-%m-%d')
