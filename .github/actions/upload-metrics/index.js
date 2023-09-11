@@ -5,7 +5,7 @@ try {
   const workflowStartDate = core.getInput('workflow-start-time');
   // const runnerName = core.getInput('runner-name');
   var proj = {
-    startDate : workflowStartDate,
+    startDate : workflowStartDate
   };
 
   const result = JSON.stringify(proj);
