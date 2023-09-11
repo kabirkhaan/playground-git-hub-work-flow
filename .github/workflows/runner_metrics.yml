@@ -21,3 +21,16 @@ jobs:
         shell: bash
         run: |
           echo "start_date=$(date)" >> "$GITHUB_ENV"
+
+      - name: Add data
+        id: add-initial-data
+        uses: ./.github/actions/upload-metrics
+        with:
+          workflow-start-time: ${{ env.start_date }}
+
+      - name: Upload report
+        uses: actions/upload-artifact@v3
+        with:
+          name: workflow-report.json
+          path: workflow-report.json
+          retention-days: 7
