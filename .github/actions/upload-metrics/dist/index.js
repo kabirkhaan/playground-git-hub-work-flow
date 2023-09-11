@@ -2821,26 +2821,25 @@ const core = __nccwpck_require__(967);
 const fs = __nccwpck_require__(147);
 
 try {
-  const defaultVersion = core.getInput('default_version');
-  const forceVersion = core.getInput('force_version');
-  if (forceVersion) {
-    core.info(`Overriding Xcode version to: ${forceVersion}`);
-    core.setOutput('xcode_version', forceVersion);
-    return
-  }
-
+  const workflowStartDate = Date(); //core.getInput('workflow-start-time');
+  // const runnerName = core.getInput('runner-name');
+  var proj = {
+    startDate : workflowStartDate,
+  };
+  
+  const result = JSON.stringify(proj);
+  console.log(result);
+  
   try {
-    const xcodeVersion = fs.readFileSync('.xcode-version', 'utf8').trim();
-    if (xcodeVersion) {
-      core.info(`Parsed Xcode version: ${xcodeVersion}`);
-      core.setOutput('xcode_version', xcodeVersion);
-    } else {
-      core.info(`Could not parse Xcode version from .xcode-version file. Using Xcode ${defaultVersion} as default.`);
-      core.setOutput('xcode_version', defaultVersion);
-    }
+    fs.writeFile('./workflow-report.json', result, (error) => {
+      if (error) {
+        throw error;
+      }
+     console.log("File has been created");
+    });
   } catch {
-    core.info(`Could not read .xcode-version file. Using Xcode ${defaultVersion} as default.`);
-    core.setOutput('xcode_version', defaultVersion);
+      // core.info(`Could not read .xcode-version file. Using Xcode ${defaultVersion} as default.`);
+      // core.setOutput('xcode_version', defaultVersion);
   }
 } catch (error) {
   core.setFailed(error.message);
