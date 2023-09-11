@@ -20,8 +20,7 @@ jobs:
       - name: Get current date
         shell: bash
         run: |
-          current_date=$(date +'%Y-%m-%d')
-          echo "start_date=$current_date" >> "$GITHUB_ENV"
+          echo "start_date=$(date)" >> "$GITHUB_ENV"
 
       - name: Add data
         id: add-initial-data
