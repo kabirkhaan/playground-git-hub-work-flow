@@ -17,9 +17,6 @@ jobs:
       - name: Add data
         id: add-initial-data
         uses: ./.github/actions/workflow-data
-        with:
-          runner-name: ${{ runner.name }}
-          workflow-start-time: $(date +'%Y-%m-%d')
 
       - name: Upload report
         if: failure()
