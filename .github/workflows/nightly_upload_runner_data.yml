@@ -26,7 +26,7 @@ jobs:
         id: add-initial-data
         uses: ./.github/actions/upload-metrics
         with:
-          workflow-start-time: ${{ env.start_date }}
+          workflow_start_time: ${{ env.start_date }}
 
       - name: Upload report
         uses: actions/upload-artifact@v3

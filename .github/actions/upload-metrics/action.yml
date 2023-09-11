@@ -1,5 +1,10 @@
 name: 'upload-metrics'
 description: '1234'
+inputs:
+  workflow_start_time:
+    description: 'start date and time'
+    required: false
+    default: '12-12-12'
 runs:
   using: 'node16'
   main: 'dist/index.js'
