@@ -2,7 +2,7 @@
 const fs = require('fs');
 
 try {
-  const workflowStartDate = Date(); //core.getInput('workflow-start-time');
+  const workflowStartDate = core.getInput('workflow-start-time');
   // const runnerName = core.getInput('runner-name');
   var proj = {
     startDate : workflowStartDate,
