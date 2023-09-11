@@ -1,0 +1,16 @@
+name: 'workflow-data'
+description: '.'
+inputs:
+  default_version:
+    description: 'upload data'
+    required: false
+    default: ''
+  force_version:
+    description: 'upload data'
+    required: false
+outputs:
+  xcode_version:
+    description: 'upload data'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
