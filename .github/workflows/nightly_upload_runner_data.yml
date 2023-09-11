@@ -1,13 +1,14 @@
 name: NIGHTLY upload runner data
 on:
   workflow_dispatch:
-  schedule:
-    # Run 0:00(UTC) on every Monday. (https://crontab.guru/#0_0_*_*_1)
-    - cron: '0 0 * * 1'
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   run_upload_runner_data:
-    runs-on: [self-hosted, ios, ci]
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     defaults:
       run:
         shell: bash -leo pipefail {0}
