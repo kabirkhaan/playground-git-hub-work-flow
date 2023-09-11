@@ -1,0 +1,23 @@
+name: NIGHTLY upload runner data
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  run_upload_runner_data:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+    timeout-minutes: 500
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Get current date
+        shell: bash
+        run: |
+          echo "start_date=$(date)" >> "$GITHUB_ENV"
