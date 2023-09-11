@@ -35,5 +35,3 @@ jobs:
           name: workflow-report.json
           path: workflow-report.json
           retention-days: 7
-
-    
