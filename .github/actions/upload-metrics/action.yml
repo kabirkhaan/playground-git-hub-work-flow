@@ -1,4 +1,4 @@
-name: 'workflow-data'
+name: 'upload-metrics'
 description: '1234'
 runs:
   using: 'node16'

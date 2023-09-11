@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Add data
         id: add-initial-data
-        uses: ./.github/actions/workflow-data
+        uses: ./.github/actions/upload-metrics
 
       - name: Upload report
         if: failure()
