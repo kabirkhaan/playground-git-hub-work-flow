@@ -20,9 +20,9 @@ try {
       console.log("File has been created");
     });
   } catch {
-    core.info(`Could not read .xcode-version file. Using Xcode ${defaultVersion} as default.`);
-    core.setOutput('xcode_version', defaultVersion);
+    // core.info(`Could not read .xcode-version file. Using Xcode ${defaultVersion} as default.`);
+    // core.setOutput('xcode_version', defaultVersion);
   }
 } catch (error) {
-  core.setFailed(error.message);
+  // core.setFailed(error.message);
 }
