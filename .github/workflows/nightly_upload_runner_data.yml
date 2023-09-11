@@ -1,0 +1,31 @@
+name: NIGHTLY upload runner data
+on:
+  workflow_dispatch:
+  schedule:
+    # Run 0:00(UTC) on every Monday. (https://crontab.guru/#0_0_*_*_1)
+    - cron: '0 0 * * 1'
+
+jobs:
+  run_upload_runner_data:
+    runs-on: [self-hosted, ios, ci]
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+    timeout-minutes: 500
+    steps:
+      - name: Add data
+        id: add-initial-data
+        uses: ./.github/workflows/workflow-data
+        with:
+          runner-name: ${{ runner.name }}
+          workflow-start-time: $(date +'%Y-%m-%d')
+
+      - name: Upload report
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: workflow-report.json
+          path: workflow-report.json
+          retention-days: 7
+
+    
