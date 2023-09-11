@@ -22,7 +22,6 @@ jobs:
         uses: ./.github/actions/upload-metrics
 
       - name: Upload report
-        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: workflow-report.json
