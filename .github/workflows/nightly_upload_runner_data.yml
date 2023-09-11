@@ -20,6 +20,8 @@ jobs:
       - name: Add data
         id: add-initial-data
         uses: ./.github/actions/upload-metrics
+        with:
+          workflow-start-time: $(date +'%Y-%m-%d')
 
       - name: Upload report
         uses: actions/upload-artifact@v3

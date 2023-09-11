@@ -2821,7 +2821,7 @@ const core = __nccwpck_require__(967);
 const fs = __nccwpck_require__(147);
 
 try {
-  const workflowStartDate = Date(); //core.getInput('workflow-start-time');
+  const workflowStartDate = core.getInput('workflow-start-time');
   // const runnerName = core.getInput('runner-name');
   var proj = {
     startDate : workflowStartDate,
