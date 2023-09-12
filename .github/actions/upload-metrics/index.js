@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const fs = require('fs');
 
 try {
-  const workflowStartDate = core.getInput('workflow-start-time');
+  const workflowStartDate = core.getInput('workflow_start_time');
   // const runnerName = core.getInput('runner-name');
   var proj = {
     startDate : workflowStartDate

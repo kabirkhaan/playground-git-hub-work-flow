@@ -1,0 +1,16 @@
+name: 'Find Xcode version'
+description: 'Parses the .xcode-version file and returns the parsed version number, a default version number or an override version number as output.'
+inputs:
+  default_version:
+    description: 'Default Xcode version that should be used in case no .xcode-version file could be found'
+    required: false
+    default: '12.4'
+  force_version:
+    description: 'Xcode version that should be force to be used, regardless of the version defined in the .xcode-version file'
+    required: false
+outputs:
+  xcode_version:
+    description: 'The Xcode version that should be used'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
