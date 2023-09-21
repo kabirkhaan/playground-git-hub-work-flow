@@ -84,6 +84,15 @@ jobs:
           echo Say Hello ABC
           echo all good ABC
 
+      - name: Run SwiftLint
+        run: |
+          echo "::add-matcher::.github/swiftlint-problem-matcher.json"
+          target_branch=origin/${{ github.event.pull_request.base.ref }}
+          current_branch=origin/${{ github.event.pull_request.head.ref }}
+          git whatchanged --name-only --pretty="" $target_branch..current_branch | grep -e '\(.*\).swift$' | while read filename; do
+            tools/swiftlint lint --strict --quiet "${filename}";
+          done
+
       - name: Say hello to the Release XYZ
         if: steps.parse-ref.outputs.xyz == 'XYZ'
         run: |
